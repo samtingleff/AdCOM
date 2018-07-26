@@ -60,6 +60,82 @@ enum AuditStatusCode {
   // TODO
 }
 
+// Media Objects
+message Ad {
+  message AdExtension {
+    extensions 1 to max;
+  }
+  optional string id = 1;
+  repeated string adomain = 2;
+  repeated string bundle = 3;
+  optional string irul = 4;
+  repeated string cat = 5;
+  optional CategoryTaxonomy cattax = 6;
+  optional string lang = 7;
+  repeated CreativeAttribute attr = 8;
+  optional bool secure = 9;
+  optional MediaRating mrating = 10;
+  optional string init = 11;
+  optional string lastmod = 12;
+  optional Display display = 13;
+  optional Video video = 14;
+  optional Audio audio = 15;
+  optional Audit audit = 16;
+  optional AdExtension ext = 500;
+}
+
+message Display {
+  message DisplayExtension {
+    extensions 1 to max;
+  }
+  optional string mime = 1;
+  repeated ApiFramework api = 2;
+  repeated DisplayCreativeSubtype type = 3;
+  optional uint32 w = 4;
+  optional uint32 h = 5;
+  optional uint32 wratio = 6;
+  optional uint32 hratio = 7;
+  optional string adm = 8;
+  optional string curl = 9;
+  optional Banner banner = 10;
+  optional Native native = 11;
+  optional Event event = 12;
+  optional DisplayExtension ext = 500;
+}
+
+message Banner {
+  message BannerExtension {
+    extensions 1 to max;
+  }
+  optional string img = 1;
+  optional string link = 2;
+  optional BannerExtension ext = 500;
+}
+
+message Native {
+  message NativeExtension {
+	extensions 1 to max;
+  }
+  optional string priv = 1;
+  optional LinkAsset link = 2;
+  repeated Asset asset = 3;
+  optional NativeExtension ext = 500;
+}
+
+message Asset {
+  message AssetExtension {
+	extensions 1 to max;
+  }
+  optional uint32 id = 1;
+  optional bool req = 2;
+  optional TitleAsset title = 3;
+  optional ImageAsset image = 4;
+  optional VideoAsset video = 5;
+  optional DataAsset data = 6;
+  optional LinkAsset link = 7;
+  optional AssetExtension ext = 500;
+}
+
 message LinkAsset {
   message LinkAssetExtension {
 	extensions 1 to max;
@@ -109,39 +185,6 @@ message DataAsset {
   optional DataAssetExtension ext = 500;
 }
 
-message Asset {
-  message AssetExtension {
-	extensions 1 to max;
-  }
-  optional uint32 id = 1;
-  optional bool req = 2;
-  optional TitleAsset title = 3;
-  optional ImageAsset image = 4;
-  optional VideoAsset video = 5;
-  optional DataAsset data = 6;
-  optional LinkAsset link = 7;
-  optional AssetExtension ext = 500;
-}
-
-message Banner {
-  message BannerExtension {
-    extensions 1 to max;
-  }
-  optional string img = 1;
-  optional string link = 2;
-  optional BannerExtension ext = 500;
-}
-
-message Native {
-  message NativeExtension {
-	extensions 1 to max;
-  }
-  optional string priv = 1;
-  optional LinkAsset link = 2;
-  repeated Asset asset = 3;
-  optional NativeExtension ext = 500;
-}
-
 message Event {
   message EventExtension {
 	extensions 1 to max;
@@ -152,25 +195,6 @@ message Event {
   optional string url= 4;
   map<string, string> cdata = 5;
   optional EventExtension ext = 500;
-}
-
-message Display {
-  message DisplayExtension {
-    extensions 1 to max;
-  }
-  optional string mime = 1;
-  repeated ApiFramework api = 2;
-  repeated DisplayCreativeSubtype type = 3;
-  optional uint32 w = 4;
-  optional uint32 h = 5;
-  optional uint32 wratio = 6;
-  optional uint32 hratio = 7;
-  optional string adm = 8;
-  optional string curl = 9;
-  optional Banner banner = 10;
-  optional Native native = 11;
-  optional Event event = 12;
-  optional DisplayExtension ext = 500;
 }
 
 message Video {
@@ -209,27 +233,4 @@ message Audit {
   optional string lastmod = 4;
   optional AuditCorrection corr = 5;
   optional AuditExtension ext = 500;
-}
-
-message Ad {
-  message AdExtension {
-    extensions 1 to max;
-  }
-  optional string id = 1;
-  repeated string adomain = 2;
-  repeated string bundle = 3;
-  optional string irul = 4;
-  repeated string cat = 5;
-  optional CategoryTaxonomy cattax = 6;
-  optional string lang = 7;
-  repeated CreativeAttribute attr = 8;
-  optional bool secure = 9;
-  optional MediaRating mrating = 10;
-  optional string init = 11;
-  optional string lastmod = 12;
-  optional Display display = 13;
-  optional Video video = 14;
-  optional Audio audio = 15;
-  optional Audit audit = 16;
-  optional AdExtension ext = 500;
 }
