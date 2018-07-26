@@ -25,16 +25,139 @@ enum DisplayCreativeSubtype {
   // TODO
 }
 
+enum VideoCreativeSubtype {
+  UNKNOWN_VIDEO_CREATIVE_SUBTYPE = 0;
+  // TODO
+}
+
+enum AudioCreativeSubtype {
+  UNKNOWN_AUDIO_CREATIVE_SUBTYPE = 0;
+  // TODO
+}
+
+enum NativeImageAssetTypes {
+  UNKNOWN_NATIVE_IMAGE_ASSET_TYPE = 0;
+  // TODO
+}
+
+enum NativeDataAssetType {
+  UNKNOWN_NATIVE_DATA_ASSET_TYPE = 0;
+  // TODO
+}
+
+enum EventType {
+  UNKNOWN_EVENT_TYPE = 0;
+  // TODO
+}
+
+enum EventTrackingMethod {
+  UNKNOWN_EVENT_TRACKING_METHOD = 0;
+  // TODO
+}
+
+enum AuditStatusCode {
+  UNKNOWN_AUDIT_STATUS_CODE = 0;
+  // TODO
+}
+
+message LinkAsset {
+  message LinkAssetExtension {
+	extensions 1 to max;
+  }
+  optional string url = 1;
+  optional string urlfb = 2;
+  repeated string trkr = 3;
+  optional LinkAssetExtension ext = 500;
+}
+
+message TitleAsset {
+  message TitleAssetExtension {
+	extensions 1 to max;
+  }
+  optional string text = 1;
+  optional uint32 len = 2;
+  optional TitleAssetExtension ext = 500;
+}
+
+message ImageAsset {
+  message ImageAssetExtension {
+	extensions 1 to max;
+  }
+  optional string url = 1;
+  optional uint32 w = 2;
+  optional uint32 h = 3;
+  optional NativeImageAssetTypes type = 4;
+  optional ImageAssetExtension ext = 500;
+}
+
+message VideoAsset {
+  message VideoAssetExtension {
+	extensions 1 to max;
+  }
+  optional string adm = 1;
+  optional string curl = 2;
+  optional VideoAssetExtension ext = 500;
+}
+
+message DataAsset {
+  message DataAssetExtension {
+	extensions 1 to max;
+  }
+  optional string value = 1;
+  optional uint32 len = 2;
+  optional NativeDataAssetType type = 3;
+  optional DataAssetExtension ext = 500;
+}
+
+message Asset {
+  message AssetExtension {
+	extensions 1 to max;
+  }
+  optional uint32 id = 1;
+  optional bool req = 2;
+  optional TitleAsset title = 3;
+  optional ImageAsset image = 4;
+  optional VideoAsset video = 5;
+  optional DataAsset data = 6;
+  optional LinkAsset link = 7;
+  optional AssetExtension ext = 500;
+}
+
 message Banner {
+  message BannerExtension {
+    extensions 1 to max;
+  }
+  optional string img = 1;
+  optional string link = 2;
+  optional BannerExtension ext = 500;
 }
 
 message Native {
+  message NativeExtension {
+	extensions 1 to max;
+  }
+  optional string priv = 1;
+  optional LinkAsset link = 2;
+  repeated Asset asset = 3;
+  optional NativeExtension ext = 500;
 }
 
 message Event {
+  message EventExtension {
+	extensions 1 to max;
+  }
+  optional EventType type = 1;
+  optional EventTrackingMethod method = 2;
+  repeated ApiFramework api = 3;
+  optional string url= 4;
+  map<string, string> cdata = 5;
+  optional EventExtension ext = 500;
 }
 
 message Display {
+  message DisplayExtension {
+    extensions 1 to max;
+  }
   optional string mime = 1;
   repeated ApiFramework api = 2;
   repeated DisplayCreativeSubtype type = 3;
@@ -47,22 +170,51 @@ message Display {
   optional Banner banner = 10;
   optional Native native = 11;
   optional Event event = 12;
+  optional DisplayExtension ext = 500;
 }
 
 message Video {
+  message VideoExtension {
+	extensions 1 to max;
+  }
+  repeated string mime = 1;
+  repeated ApiFramework api = 2;
+  repeated VideoCreativeSubtype type = 3;
+  optional string adm = 4;
+  optional string curl = 5;
+  optional VideoExtension ext = 500;
 }
 
 message Audio {
+  message AudioExtension {
+	extensions 1 to max;
+  }
+  repeated string mime = 1;
+  repeated ApiFramework api = 2;
+  repeated AudioCreativeSubtype type = 3;
+  optional string adm = 4;
+  optional AudioExtension ext = 500;
 }
 
 message Audit {
-}
-
-message AdExtension {
-  extensions 1 to 18999;
+  message AuditExtension {
+	extensions 1 to max;
+  }
+  message AuditCorrection {
+	// TODO: not sure how to handle this
+  }
+  optional AuditStatusCode status = 1;
+  repeated string feedback = 2;
+  optional string init = 3;
+  optional string lastmod = 4;
+  optional AuditCorrection corr = 5;
+  optional AuditExtension ext = 500;
 }
 
 message Ad {
+  message AdExtension {
+    extensions 1 to max;
+  }
   optional string id = 1;
   repeated string adomain = 2;
   repeated string bundle = 3;
